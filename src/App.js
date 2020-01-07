@@ -68,7 +68,6 @@ export default function PicturePreview() {
   useEffect(() => {
     // 图片加载后记录 LAST 状态信息
     function pictureLoaded() {
-      console.log('pictue loaded')
       previewLoading.current = false
       const previewPictureRect = this.getBoundingClientRect()
       elementPosition.current[FLIP_STATE.LAST] = [
