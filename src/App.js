@@ -96,10 +96,12 @@ export default function PicturePreview() {
       // 需要监听 load 事件后才能获取到正确的元素位置信息
       previewRef.current.addEventListener('load', pictureLoaded)
     }
-    // INVERT 过渡到 PLAY
+    // INVERT -> PLAY
     else if (flipState === FLIP_STATE.INVERT) {
+      // LAST 状态和 PLAY 结束后的状态，图片预览都是可见的，LAST -> INVERT -> PLAY 状态转换的时间过短时，
+      // 浏览器会进行视图合并优化，直接渲染出预览图，而忽略了过渡的动效
+      // 因此在 INVERT 状态后延迟一段时间再转换到 PLAY 状态，保证过渡动效
       setTimeout(() => setFlipState(FLIP_STATE.PLAY), 5)
-      // setFlipState(FLIP_STATE.PLAY)
     }
   }, [flipState, visibleState])
 
